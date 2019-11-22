@@ -4,14 +4,25 @@
       1
       (* (term a) (product term (next a) next b))))
 
-(define (inc x) (+ x 1))
+; Iterative product
+(define (fast-product term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (* (term a) result))))
+  (iter a 1))
 
+; Helpers
+(define (inc x) (+ x 1))
+(define (id x) x)
+
+; Factorial
 (define (factorial n)
-  (define (id x) x)
   (if (= n 0)
       1
       (product id 1 inc n)))
 
+; Pi-approcsimation
 (define (pi n)
   (define (dividend x)
     (define (trim x)
@@ -27,7 +38,7 @@
     (/ (dividend (+ x 0.0))
        (divisor x)))
 
-  (product term 1 inc n))
+  (fast-product term 1 inc n))
 
 
 ; Test
@@ -35,6 +46,9 @@
   (< (abs (- a b)) eps))
 
 (and
+  (= (product id 1 inc 5) 120)
+  (= (fast-product id 1 inc 5) 120)
   (= (factorial 5) 120)
   (near (* 4 (pi 1000)) 3.1415 0.01)
   )
+
