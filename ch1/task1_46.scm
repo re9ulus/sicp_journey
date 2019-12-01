@@ -32,7 +32,6 @@
 ; fixed-point redefinition with iterative-improve
 (define (new-fixed-point f init-guess)
   
-  ; ok == near
   (define (ok? guess)
     (near? guess (f guess)))
 
