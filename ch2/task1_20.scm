@@ -7,7 +7,7 @@
 
     (define (inner lst)
       (if (null? lst)
-          (list)
+          '()
           (let ((head (car lst))
                 (tail (cdr lst)))
             (if (accept? head)
